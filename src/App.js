@@ -158,14 +158,61 @@
 
 // ---------------------------------------------------------------
 
+// // Importações do react-router-dom atualizadas para a versão 6
+// import { BrowserRouter, Routes, Route } from 'react-router-dom';
+// import { Search } from './screens/Search';
+// import { Details } from './screens/Details';
+// import { NotFound } from './screens/NotFound';
+// // Importação do normalize styles js
+// import { NormalizeStyles } from './shared/NormalizeStyles';
+// import { Header } from './common-components/Header/Header'; // Adicionando o Header do código antigo
+
+// export function App() {
+//   return (
+//     <>
+//       <NormalizeStyles /> {/* Mantém a normalização de estilos */}
+
+//       <BrowserRouter>
+//         {/* Adiciona o Header fixo em todas as rotas */}
+//         <Header /> 
+
+//         <Routes>
+//           {/* Rota para os detalhes, usando JSX na propriedade `element` */}
+//           <Route path="/detalhes/:id" element={<Details />} />
+
+//           {/* Rota principal, que exibe o componente Search */}
+//           <Route path="/" element={<Search />} />
+
+//           {/* Rota de "Página não encontrada" */}
+//           <Route path="*" element={<NotFound />} />
+//         </Routes>
+//       </BrowserRouter>
+//     </>
+//   );
+// }
+
+
+// ----- Configuração de Instância Global do Axios e Integração com Axios-Hooks ------
+
 // Importações do react-router-dom atualizadas para a versão 6
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Search } from './screens/Search';
 import { Details } from './screens/Details';
 import { NotFound } from './screens/NotFound';
+
 // Importação do normalize styles js
 import { NormalizeStyles } from './shared/NormalizeStyles';
 import { Header } from './common-components/Header/Header'; // Adicionando o Header do código antigo
+
+// Importações do Axios e Axios-hooks para configuração global
+import Axios from 'axios';
+import { configure } from 'axios-hooks';
+
+// Configuração de uma instância global do Axios
+const axios = Axios.create({
+  baseURL: `${process.env.REACT_APP_SUPER_HERO_API_BASE_URL}/${process.env.REACT_APP_SUPER_HERO_API_KEY}`,
+});
+configure({ axios }); // Configurando o axios-hooks para usar a instância criada
 
 export function App() {
   return (
