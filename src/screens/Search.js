@@ -1240,17 +1240,128 @@
 // }
 
 
-import React, { useEffect } from 'react'; // Certifique-se de importar useEffect
-import axios from 'axios';
-import useAxios from 'axios-hooks';
+// import React, { useEffect } from 'react'; // Certifique-se de importar useEffect
+// import axios from 'axios';
+// import useAxios from 'axios-hooks';
+// import { Flex, Box } from 'reflexbox';
+// import styled from 'styled-components';
+// import { Button } from '../common-components/Button/Button';
+// import { SearchField } from '../common-components/SearchField/SearchField';
+// import { HeroCard } from '../components/HeroCard/HeroCard';
+// import { HeroCardLoader } from '../components/HeroCard/HeroCardLoader'; // Import do loader para os cards
+// import { Spaces } from '../shared/DesignTokens';
+// import { Alert } from '../common-components/Alert/Alert';
+
+// const HeroesGrid = styled(Box)`
+// 	display: grid;
+// 	grid-template-columns: 1fr;
+// 	gap: ${Spaces.ONE_HALF};
+// 	@media (min-width: 1024px) {
+// 		grid-template-columns: 1fr 1fr 1fr 1fr;
+// 		gap: ${Spaces.TWO};
+// 	}
+// `;
+
+// export function Search() {
+// 	const [search, setSearch] = React.useState({
+// 		value: 'captain',
+// 		doSearch: false,
+// 	});
+	
+// 	const [{ data: heroes, loading: isLoadingHeroes }, searchHero] = useAxios(
+// 		`/search/${search.value}`,
+// 		{ manual: true }
+// 	);
+
+// 	// Chamada automática ao montar o componente
+// 	useEffect(() => {
+// 		searchHero(); // Chama a API para buscar o herói "captain"
+// 	}, []); // Chama apenas na montagem do componente
+
+// 	function handleUpdateSearchValue({ target: { value } }) {
+// 		setSearch((prevValue) => ({ ...prevValue, value }));
+// 	}
+
+// 	function handleSearch() {
+// 		setSearch((prevValue) => ({ ...prevValue, doSearch: true }));
+// 		searchHero();
+// 	}
+
+// 	return (
+// 		<>
+// 			<Flex
+// 				width={['100%', '600px']}
+// 				mx={[Spaces.None, 'auto']}
+// 				mt={[Spaces.THREE, Spaces.FIVE]}
+// 				px={[Spaces.ONE, Spaces.NONE]}
+// 				mb={[Spaces.TWO, Spaces.FOUR]}
+// 			>
+// 				<Box flexGrow="1">
+// 					<SearchField
+// 						placeholder="Digite um nome de herói ou heroína"
+// 						onKeyUp={handleUpdateSearchValue}
+// 					/>
+// 				</Box>
+// 				<Box ml={Spaces.TWO}>
+// 					<Button onClick={handleSearch}>Buscar</Button>
+// 				</Box>
+// 			</Flex>
+
+// 			{isLoadingHeroes ? (
+// 				<HeroesGrid
+// 					px={[Spaces.ONE, Spaces.TWO]}
+// 					pb={[Spaces.ONE, Spaces.TWO]}
+// 				>
+// 					{/* Renderiza os loaders enquanto a requisição está carregando */}
+// 					<HeroCardLoader />
+// 					<HeroCardLoader />
+// 					<HeroCardLoader />
+// 					<HeroCardLoader />
+// 				</HeroesGrid>
+// 			) : heroes && heroes.error ? (
+// 				<Box
+// 					px={[Spaces.ONE, Spaces.TWO]}
+// 					pb={[Spaces.ONE, Spaces.TWO]}
+// 				>
+// 					<Alert type="info">
+// 						Nenhum registro de herói ou heroína foi encontrado.
+// 					</Alert>
+// 				</Box>
+// 			) : (
+// 				<HeroesGrid
+// 					px={[Spaces.ONE, Spaces.TWO]}
+// 					pb={[Spaces.ONE, Spaces.TWO]}
+// 				>
+// 					{/* Exibe os heróis após o carregamento, se os dados estiverem disponíveis */}
+// 					{heroes && heroes.results.map((hero) => (
+// 						<HeroCard
+// 							key={hero.id}
+// 							id={hero.id}
+// 							secretIdentity={hero.biography['full-name']}
+// 							name={hero.name}
+// 							picture={hero.image.url}
+// 							universe={hero.biography.publisher}
+// 						/>
+// 					))}
+// 				</HeroesGrid>
+// 			)}
+// 		</>
+// 	);
+// }
+
+
+// ========= Substituição da Chamada Direta de API pelo Custom Hook useHeroes ======
+
+import React from 'react';
 import { Flex, Box } from 'reflexbox';
 import styled from 'styled-components';
 import { Button } from '../common-components/Button/Button';
 import { SearchField } from '../common-components/SearchField/SearchField';
 import { HeroCard } from '../components/HeroCard/HeroCard';
-import { HeroCardLoader } from '../components/HeroCard/HeroCardLoader'; // Import do loader para os cards
+import { HeroCardLoader } from '../components/HeroCard/HeroCardLoader';
 import { Spaces } from '../shared/DesignTokens';
 import { Alert } from '../common-components/Alert/Alert';
+import { useHeroes } from '../hooks/useHeroes';
 
 const HeroesGrid = styled(Box)`
 	display: grid;
@@ -1267,25 +1378,14 @@ export function Search() {
 		value: 'captain',
 		doSearch: false,
 	});
-	
-	const [{ data: heroes, loading: isLoadingHeroes }, searchHero] = useAxios(
-		`/search/${search.value}`,
-		{ manual: true }
-	);
-
-	// Chamada automática ao montar o componente
-	useEffect(() => {
-		searchHero(); // Chama a API para buscar o herói "captain"
-	}, []); // Chama apenas na montagem do componente
-
-	function handleUpdateSearchValue({ target: { value } }) {
-		setSearch((prevValue) => ({ ...prevValue, value }));
-	}
-
-	function handleSearch() {
-		setSearch((prevValue) => ({ ...prevValue, doSearch: true }));
-		searchHero();
-	}
+	const { heroes, isLoadingHeroes, searchHero } = useHeroes(search.value); // Alteração: substituindo useAxios pelo hook customizado useHeroes
+	React.useEffect(() => {
+		if (search.doSearch) {
+			searchHero().then(() => {
+				setSearch((prevValue) => ({ ...prevValue, doSearch: false }));
+			});
+		}
+	}, [search]);
 
 	return (
 		<>
@@ -1299,11 +1399,11 @@ export function Search() {
 				<Box flexGrow="1">
 					<SearchField
 						placeholder="Digite um nome de herói ou heroína"
-						onKeyUp={handleUpdateSearchValue}
+						onKeyUp={({ target: { value } }) => setSearch((prevValue) => ({ ...prevValue, value }))}
 					/>
 				</Box>
 				<Box ml={Spaces.TWO}>
-					<Button onClick={handleSearch}>Buscar</Button>
+					<Button onClick={() => setSearch((prevValue) => ({ ...prevValue, doSearch: true }))}>Buscar</Button>
 				</Box>
 			</Flex>
 
@@ -1312,7 +1412,6 @@ export function Search() {
 					px={[Spaces.ONE, Spaces.TWO]}
 					pb={[Spaces.ONE, Spaces.TWO]}
 				>
-					{/* Renderiza os loaders enquanto a requisição está carregando */}
 					<HeroCardLoader />
 					<HeroCardLoader />
 					<HeroCardLoader />
@@ -1332,7 +1431,6 @@ export function Search() {
 					px={[Spaces.ONE, Spaces.TWO]}
 					pb={[Spaces.ONE, Spaces.TWO]}
 				>
-					{/* Exibe os heróis após o carregamento, se os dados estiverem disponíveis */}
 					{heroes && heroes.results.map((hero) => (
 						<HeroCard
 							key={hero.id}
