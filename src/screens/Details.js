@@ -726,7 +726,1141 @@
 // }
 
 
-// >>>  TÍTULO: Condicional de Renderização do Hero <<<<<<<
+// >>>>>>>>>>  TÍTULO: Condicional de Renderização do Hero <<<<<<<<<<<<<<<<
+
+
+// import styled from 'styled-components';
+// import { Flex, Box } from 'reflexbox';
+// import {
+// 	BorderRadiuses,
+// 	Colors,
+// 	Shadows,
+// 	Spaces,
+// } from '../shared/DesignTokens';
+// import {
+// 	SelectField,
+// 	Option,
+// } from '../common-components/SelectField/SelectField';
+// import { Button } from '../common-components/Button/Button';
+// import { HeadingTwo } from '../common-components/HeadingTwo/HeadingTwo';
+// import { Description } from '../common-components/Description/Description';
+// import { Card } from '../common-components/Card/Card';
+// import { Caption } from '../common-components/Caption/Caption';
+// import { useNavigate, useParams } from 'react-router-dom';
+// import { useHero } from '../hooks/useHero';
+
+// const Container = styled.aside`
+// 	width: 727px;
+// 	margin: 0 auto;
+// `;
+
+// const HeroAvatar = styled.div`
+// 	width: 344px;
+// 	height: 194px;
+// 	box-shadow: ${Shadows.ONE};
+// 	border-radius: ${BorderRadiuses.ONE};
+// 	background-image: url('${(props) => props.src}');
+// 	background-repeat: no-repeat;
+// 	background-size: cover;
+// 	background-position: center 25%;
+// `;
+
+// const DetailsGrid = styled.section`
+// 	display: grid;
+// 	grid-template-columns: 1fr 1fr 1fr;
+// 	gap: ${Spaces.TWO};
+// `;
+
+// export function Details() {
+// 	const navigate = useNavigate();
+// 	const { id } = useParams();
+// 	const { hero, isLoadingHero } = useHero(id);
+
+// 	const handleBack = () => {
+// 		navigate(-1);
+// 	};
+
+// 	return (
+// 		!isLoadingHero && ( // Alteração: Condicional de renderização do Container
+// 			<Container>
+// 				<Flex mt={Spaces.FOUR} as="section">
+// 					<HeroAvatar src={hero.image.url} />
+// 					<Flex
+// 						flexDirection="column"
+// 						justifyContent="center"
+// 						height={194}
+// 						ml={Spaces.SEVEN}
+// 					>
+// 						<Flex>
+// 							<SelectField defaultValue="">
+// 								<Option value="" disabled>
+// 									Selecione a nota
+// 								</Option>
+// 								<Option>5</Option>
+// 								<Option>4</Option>
+// 								<Option>3</Option>
+// 								<Option>2</Option>
+// 								<Option>1</Option>
+// 							</SelectField>
+// 							<Box ml={Spaces.THREE}>
+// 								<Button>Atribuir</Button>
+// 							</Box>
+// 						</Flex>
+// 					</Flex>
+// 				</Flex>
+// 				<Box my={Spaces.ONE_HALF} as="section">
+// 					<HeadingTwo as="h1">{hero.name}</HeadingTwo>
+// 					<Description color={Colors.GRAY_700}>
+// 						{hero.biography['full-name']} - {hero.biography.publisher}
+// 					</Description>
+// 				</Box>
+// 				<DetailsGrid>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Codinomes</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								{hero.biography.aliases.join(', ')}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Local de Nascimento</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								{hero.biography['place-of-birth']}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Primeira HQ</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								{hero.biography['first-appearance']}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Informações Biológicas</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								<strong>Genero: </strong> {hero.appearance.gender}
+// 								<br />
+// 								<strong>Raça: </strong> {hero.appearance.race}
+// 								<br />
+// 								<strong>Altura: </strong> {hero.appearance.height[1]}
+// 								<br />
+// 								<strong>Peso: </strong> {hero.appearance.weight[1]}
+// 								<br />
+// 								<strong>Cor do olho: </strong> {hero.appearance['eye-color']}
+// 								<br />
+// 								<strong>Cor do cabelo: </strong> {hero.appearance['hair-color']}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Atributos</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								<strong>Força: </strong> {hero.powerstats.strength}
+// 								<br />
+// 								<strong>Inteligência: </strong> {hero.powerstats.intelligence}
+// 								<br />
+// 								<strong>Velocidade: </strong> {hero.powerstats.speed}
+// 								<br />
+// 								<strong>Resistência: </strong> {hero.powerstats.durability}
+// 								<br />
+// 								<strong>Poder: </strong> {hero.powerstats.power}
+// 								<br />
+// 								<strong>Combate: </strong> {hero.powerstats.combat}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 				</DetailsGrid>
+// 				<Flex width="100%" justifyContent="center" mt={Spaces.FIVE}>
+// 					<Box>
+// 						<Button ghost onClick={handleBack}>
+// 							Voltar
+// 						</Button>
+// 					</Box>
+// 				</Flex>
+// 			</Container>
+// 		)
+// 	);
+// }
+
+
+// ========= Integração do Formulário de Avaliação com Formik =================
+
+// import styled from 'styled-components';
+// import { Flex, Box } from 'reflexbox';
+// import {
+// 	BorderRadiuses,
+// 	Colors,
+// 	Shadows,
+// 	Spaces,
+// } from '../shared/DesignTokens';
+// import {
+// 	SelectField,
+// 	Option,
+// } from '../common-components/SelectField/SelectField';
+// import { Button } from '../common-components/Button/Button';
+// import { HeadingTwo } from '../common-components/HeadingTwo/HeadingTwo';
+// import { Description } from '../common-components/Description/Description';
+// import { Card } from '../common-components/Card/Card';
+// import { Caption } from '../common-components/Caption/Caption';
+// import { useNavigate, useParams } from 'react-router-dom';
+// import { useHero } from '../hooks/useHero';
+// import { useFormik } from 'formik'; // Importação de Formik adicionada
+
+// const Container = styled.aside`
+// 	width: 727px;
+// 	margin: 0 auto;
+// `;
+
+// const HeroAvatar = styled.div`
+// 	width: 344px;
+// 	height: 194px;
+// 	box-shadow: ${Shadows.ONE};
+// 	border-radius: ${BorderRadiuses.ONE};
+// 	background-image: url('${(props) => props.src}');
+// 	background-repeat: no-repeat;
+// 	background-size: cover;
+// 	background-position: center 25%;
+// `;
+
+// const DetailsGrid = styled.section`
+// 	display: grid;
+// 	grid-template-columns: 1fr 1fr 1fr;
+// 	gap: ${Spaces.TWO};
+// `;
+
+// export function Details() {
+// 	const navigate = useNavigate();
+// 	const { id } = useParams();
+// 	const { hero, isLoadingHero } = useHero(id);
+
+// 	// Formik: Inicializando o hook useFormik com valores iniciais e função de submissão
+// 	const formik = useFormik({
+// 		initialValues: {
+// 			avaliation: '',
+// 		},
+// 		onSubmit: (values) => {
+// 			console.log(values);
+// 		},
+// 	});
+
+// 	const handleBack = () => {
+// 		navigate(-1);
+// 	};
+
+// 	return (
+// 		!isLoadingHero && (
+// 			<Container>
+// 				<Flex mt={Spaces.FOUR} as="section">
+// 					<HeroAvatar src={hero.image.url} />
+// 					<Flex
+// 						flexDirection="column"
+// 						justifyContent="center"
+// 						height={194}
+// 						ml={Spaces.SEVEN}
+// 					>
+// 						<Flex as="form" onSubmit={formik.handleSubmit}>
+// 							<SelectField
+// 								name="avaliation"
+// 								onChange={formik.handleChange}
+// 								value={formik.values.avaliation}
+// 								defaultValue=""
+// 							>
+// 								<Option value="" disabled>
+// 									Selecione a nota
+// 								</Option>
+// 								<Option>5</Option>
+// 								<Option>4</Option>
+// 								<Option>3</Option>
+// 								<Option>2</Option>
+// 								<Option>1</Option>
+// 							</SelectField>
+// 							<Box ml={Spaces.THREE}>
+// 								<Button type="submit">Atribuir</Button>
+// 							</Box>
+// 						</Flex>
+// 					</Flex>
+// 				</Flex>
+// 				<Box my={Spaces.ONE_HALF} as="section">
+// 					<HeadingTwo as="h1">{hero.name}</HeadingTwo>
+// 					<Description color={Colors.GRAY_700}>
+// 						{hero.biography['full-name']} - {hero.biography.publisher}
+// 					</Description>
+// 				</Box>
+// 				<DetailsGrid>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Codinomes</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								{hero.biography.aliases.join(', ')}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Local de Nascimento</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								{hero.biography['place-of-birth']}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Primeira HQ</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								{hero.biography['first-appearance']}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Informações Biológicas</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								<strong>Genero: </strong> {hero.appearance.gender}
+// 								<br />
+// 								<strong>Raça: </strong> {hero.appearance.race}
+// 								<br />
+// 								<strong>Altura: </strong> {hero.appearance.height[1]}
+// 								<br />
+// 								<strong>Peso: </strong> {hero.appearance.weight[1]}
+// 								<br />
+// 								<strong>Cor do olho: </strong> {hero.appearance['eye-color']}
+// 								<br />
+// 								<strong>Cor do cabelo: </strong> {hero.appearance['hair-color']}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Atributos</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								<strong>Força: </strong> {hero.powerstats.strength}
+// 								<br />
+// 								<strong>Inteligência: </strong> {hero.powerstats.intelligence}
+// 								<br />
+// 								<strong>Velocidade: </strong> {hero.powerstats.speed}
+// 								<br />
+// 								<strong>Resistência: </strong> {hero.powerstats.durability}
+// 								<br />
+// 								<strong>Poder: </strong> {hero.powerstats.power}
+// 								<br />
+// 								<strong>Combate: </strong> {hero.powerstats.combat}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 				</DetailsGrid>
+// 				<Flex width="100%" justifyContent="center" mt={Spaces.FIVE}>
+// 					<Box>
+// 						<Button ghost onClick={handleBack}>
+// 							Voltar
+// 						</Button>
+// 					</Box>
+// 				</Flex>
+// 			</Container>
+// 		)
+// 	);
+// }
+
+
+// ===== Implementação de Formulário de Avaliação com useFormik para Controle de Estado =====
+
+// import styled from 'styled-components';
+// import { Flex, Box } from 'reflexbox';
+// import {
+// 	BorderRadiuses,
+// 	Colors,
+// 	Shadows,
+// 	Spaces,
+// } from '../shared/DesignTokens';
+// import {
+// 	SelectField,
+// 	Option,
+// } from '../common-components/SelectField/SelectField';
+// import { Button } from '../common-components/Button/Button';
+// import { HeadingTwo } from '../common-components/HeadingTwo/HeadingTwo';
+// import { Description } from '../common-components/Description/Description';
+// import { Card } from '../common-components/Card/Card';
+// import { Caption } from '../common-components/Caption/Caption';
+// import { useNavigate, useParams } from 'react-router-dom';
+// import { useHero } from '../hooks/useHero';
+// import { useFormik } from 'formik';
+
+// const Container = styled.aside`
+// 	width: 727px;
+// 	margin: 0 auto;
+// `;
+
+// const HeroAvatar = styled.div`
+// 	width: 344px;
+// 	height: 194px;
+// 	box-shadow: ${Shadows.ONE};
+// 	border-radius: ${BorderRadiuses.ONE};
+// 	background-image: url('${(props) => props.src}');
+// 	background-repeat: no-repeat;
+// 	background-size: cover;
+// 	background-position: center 25%;
+// `;
+
+// const DetailsGrid = styled.section`
+// 	display: grid;
+// 	grid-template-columns: 1fr 1fr 1fr;
+// 	gap: ${Spaces.TWO};
+// `;
+
+// export function Details() {
+// 	const navigate = useNavigate();
+// 	const { id } = useParams();
+// 	const { hero, isLoadingHero } = useHero(id);
+
+// 	const formik = useFormik({
+// 		initialValues: {
+// 			avaliation: '',
+// 		},
+// 		onSubmit: (values) => {
+// 			console.log(values);
+// 		},
+// 	});
+
+// 	const handleBack = () => {
+// 		navigate(-1);
+// 	};
+
+// 	return (
+// 		!isLoadingHero && (
+// 			<Container>
+// 				<Flex mt={Spaces.FOUR} as="section">
+// 					<HeroAvatar src={hero.image.url} />
+// 					<Flex
+// 						flexDirection="column"
+// 						justifyContent="center"
+// 						height={194}
+// 						ml={Spaces.SEVEN}
+// 					>
+// 						{/* Formulário adicionado para integrar com o Formik */}
+// 						<form onSubmit={formik.handleSubmit}>
+// 							<Flex>
+// 								<SelectField
+// 									name="avaliation" // nome adicionado para controle de estado com Formik
+// 									onChange={formik.handleChange} // permite que o Formik monitore as alterações no campo
+// 									value={formik.values.avaliation} // liga o campo ao valor interno do estado do Formik
+// 									required
+// 								>
+// 									<Option value="" disabled>
+// 										Selecione a nota
+// 									</Option>
+// 									<Option>5</Option>
+// 									<Option>4</Option>
+// 									<Option>3</Option>
+// 									<Option>2</Option>
+// 									<Option>1</Option>
+// 								</SelectField>
+// 								<Box ml={Spaces.THREE}>
+// 									<Button type="submit">Atribuir</Button>
+// 								</Box>
+// 							</Flex>
+// 						</form>
+// 					</Flex>
+// 				</Flex>
+// 				<Box my={Spaces.ONE_HALF} as="section">
+// 					<HeadingTwo as="h1">{hero.name}</HeadingTwo>
+// 					<Description color={Colors.GRAY_700}>
+// 						{hero.biography['full-name']} - {hero.biography.publisher}
+// 					</Description>
+// 				</Box>
+// 				<DetailsGrid>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Codinomes</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								{hero.biography.aliases.join(', ')}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Local de Nascimento</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								{hero.biography['place-of-birth']}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Primeira HQ</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								{hero.biography['first-appearance']}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Informações Biológicas</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								<strong>Genero: </strong> {hero.appearance.gender}
+// 								<br />
+// 								<strong>Raça: </strong> {hero.appearance.race}
+// 								<br />
+// 								<strong>Altura: </strong> {hero.appearance.height[1]}
+// 								<br />
+// 								<strong>Peso: </strong> {hero.appearance.weight[1]}
+// 								<br />
+// 								<strong>Cor do olho: </strong> {hero.appearance['eye-color']}
+// 								<br />
+// 								<strong>Cor do cabelo: </strong> {hero.appearance['hair-color']}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Atributos</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								<strong>Força: </strong> {hero.powerstats.strength}
+// 								<br />
+// 								<strong>Inteligência: </strong> {hero.powerstats.intelligence}
+// 								<br />
+// 								<strong>Velocidade: </strong> {hero.powerstats.speed}
+// 								<br />
+// 								<strong>Resistência: </strong> {hero.powerstats.durability}
+// 								<br />
+// 								<strong>Poder: </strong> {hero.powerstats.power}
+// 								<br />
+// 								<strong>Combate: </strong> {hero.powerstats.combat}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 				</DetailsGrid>
+// 				<Flex width="100%" justifyContent="center" mt={Spaces.FIVE}>
+// 					<Box>
+// 						<Button ghost onClick={handleBack}>
+// 							Voltar
+// 						</Button>
+// 					</Box>
+// 				</Flex>
+// 			</Container>
+// 		)
+// 	);
+// }
+
+
+// ===== Implementação de Validação Visual com Alerta Usando Formik 
+// ===== no Formulário de Avaliação de Heróis
+
+
+// import styled from 'styled-components';
+// import { Flex, Box } from 'reflexbox';
+// import {
+// 	BorderRadiuses,
+// 	Colors,
+// 	Shadows,
+// 	Spaces,
+// } from '../shared/DesignTokens';
+// import {
+// 	SelectField,
+// 	Option,
+// } from '../common-components/SelectField/SelectField';
+// import { Button } from '../common-components/Button/Button';
+// import { HeadingTwo } from '../common-components/HeadingTwo/HeadingTwo';
+// import { Description } from '../common-components/Description/Description';
+// import { Card } from '../common-components/Card/Card';
+// import { Caption } from '../common-components/Caption/Caption';
+// import { useNavigate, useParams } from 'react-router-dom';
+// import { useHero } from '../hooks/useHero';
+// import { useFormik } from 'formik';
+
+// const Container = styled.aside`
+// 	width: 727px;
+// 	margin: 0 auto;
+// `;
+
+// const HeroAvatar = styled.div`
+// 	width: 344px;
+// 	height: 194px;
+// 	box-shadow: ${Shadows.ONE};
+// 	border-radius: ${BorderRadiuses.ONE};
+// 	background-image: url('${(props) => props.src}');
+// 	background-repeat: no-repeat;
+// 	background-size: cover;
+// 	background-position: center 25%;
+// `;
+
+// const DetailsGrid = styled.section`
+// 	display: grid;
+// 	grid-template-columns: 1fr 1fr 1fr;
+// 	gap: ${Spaces.TWO};
+// `;
+
+// export function Details() {
+// 	const navigate = useNavigate();
+// 	const { id } = useParams();
+// 	const { hero, isLoadingHero } = useHero(id);
+
+// 	const formik = useFormik({
+// 		initialValues: {
+// 			avaliation: '',
+// 		},
+// 		onSubmit: (values) => {
+// 			console.log(values);
+// 		},
+// 	});
+
+// 	const handleBack = () => {
+// 		navigate(-1);
+// 	};
+
+// 	return (
+// 		!isLoadingHero && (
+// 			<Container>
+// 				<Flex mt={Spaces.FOUR} as="section">
+// 					<HeroAvatar src={hero.image.url} />
+// 					<Flex flexDirection="column" justifyContent="center" height={194} ml={Spaces.SEVEN}>
+// 						{/* Formulário atualizado com validação visual e alerta de erro */}
+// 						<form onSubmit={formik.handleSubmit}>
+// 							<Flex>
+// 								<SelectField
+// 									name="avaliation"
+// 									onChange={formik.handleChange}
+// 									value={formik.values.avaliation}
+// 									required
+// 								>
+// 									<Option value="" disabled>
+// 										Selecione a nota
+// 									</Option>
+// 									<Option>5</Option>
+// 									<Option>4</Option>
+// 									<Option>3</Option>
+// 									<Option>2</Option>
+// 									<Option>1</Option>
+// 								</SelectField>
+// 								<Box ml={Spaces.THREE}>
+// 									<Button type="submit">Atribuir</Button>
+// 								</Box>
+// 							</Flex>
+// 							<Box mt={Spaces.TWO}>
+// 								<Alert type="error">
+// 									Escolha uma nota para ser atribuída
+// 								</Alert>
+// 							</Box>
+// 						</form>
+// 					</Flex>
+// 				</Flex>
+// 				<Box my={Spaces.ONE_HALF} as="section">
+// 					<HeadingTwo as="h1">{hero.name}</HeadingTwo>
+// 					<Description color={Colors.GRAY_700}>
+// 						{hero.biography['full-name']} - {hero.biography.publisher}
+// 					</Description>
+// 				</Box>
+// 				<DetailsGrid>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Codinomes</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								{hero.biography.aliases.join(', ')}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Local de Nascimento</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								{hero.biography['place-of-birth']}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Primeira HQ</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								{hero.biography['first-appearance']}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Informações Biológicas</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								<strong>Genero: </strong> {hero.appearance.gender}
+// 								<br />
+// 								<strong>Raça: </strong> {hero.appearance.race}
+// 								<br />
+// 								<strong>Altura: </strong> {hero.appearance.height[1]}
+// 								<br />
+// 								<strong>Peso: </strong> {hero.appearance.weight[1]}
+// 								<br />
+// 								<strong>Cor do olho: </strong> {hero.appearance['eye-color']}
+// 								<br />
+// 								<strong>Cor do cabelo: </strong> {hero.appearance['hair-color']}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Atributos</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								<strong>Força: </strong> {hero.powerstats.strength}
+// 								<br />
+// 								<strong>Inteligência: </strong> {hero.powerstats.intelligence}
+// 								<br />
+// 								<strong>Velocidade: </strong> {hero.powerstats.speed}
+// 								<br />
+// 								<strong>Resistência: </strong> {hero.powerstats.durability}
+// 								<br />
+// 								<strong>Poder: </strong> {hero.powerstats.power}
+// 								<br />
+// 								<strong>Combate: </strong> {hero.powerstats.combat}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 				</DetailsGrid>
+// 				<Flex width="100%" justifyContent="center" mt={Spaces.FIVE}>
+// 					<Box>
+// 						<Button ghost onClick={handleBack}>
+// 							Voltar
+// 						</Button>
+// 					</Box>
+// 				</Flex>
+// 			</Container>
+// 		)
+// 	);
+// }
+
+
+// ===== Adicionando a importação do Alert que não veio no codigo do professor
+
+
+// import styled from 'styled-components';
+// import { Flex, Box } from 'reflexbox';
+// import {
+// 	BorderRadiuses,
+// 	Colors,
+// 	Shadows,
+// 	Spaces,
+// } from '../shared/DesignTokens';
+// import {
+// 	SelectField,
+// 	Option,
+// } from '../common-components/SelectField/SelectField';
+// import { Button } from '../common-components/Button/Button';
+// import { HeadingTwo } from '../common-components/HeadingTwo/HeadingTwo';
+// import { Description } from '../common-components/Description/Description';
+// import { Card } from '../common-components/Card/Card';
+// import { Caption } from '../common-components/Caption/Caption';
+// import { useNavigate, useParams } from 'react-router-dom';
+// import { useHero } from '../hooks/useHero';
+// import { useFormik } from 'formik';
+// import { Alert } from '../common-components/Alert/Alert'; // Import do Alert
+
+// const Container = styled.aside`
+// 	width: 727px;
+// 	margin: 0 auto;
+// `;
+
+// const HeroAvatar = styled.div`
+// 	width: 344px;
+// 	height: 194px;
+// 	box-shadow: ${Shadows.ONE};
+// 	border-radius: ${BorderRadiuses.ONE};
+// 	background-image: url('${(props) => props.src}');
+// 	background-repeat: no-repeat;
+// 	background-size: cover;
+// 	background-position: center 25%;
+// `;
+
+// const DetailsGrid = styled.section`
+// 	display: grid;
+// 	grid-template-columns: 1fr 1fr 1fr;
+// 	gap: ${Spaces.TWO};
+// `;
+
+// export function Details() {
+// 	const navigate = useNavigate();
+// 	const { id } = useParams();
+// 	const { hero, isLoadingHero } = useHero(id);
+
+// 	const formik = useFormik({
+// 		initialValues: {
+// 			avaliation: '',
+// 		},
+// 		onSubmit: (values) => {
+// 			console.log(values);
+// 		},
+// 	});
+
+// 	const handleBack = () => {
+// 		navigate(-1);
+// 	};
+
+// 	return (
+// 		!isLoadingHero && (
+// 			<Container>
+// 				<Flex mt={Spaces.FOUR} as="section">
+// 					<HeroAvatar src={hero.image.url} />
+// 					<Flex flexDirection="column" justifyContent="center" height={194} ml={Spaces.SEVEN}>
+// 						<form onSubmit={formik.handleSubmit}>
+// 							<Flex>
+// 								<SelectField
+// 									name="avaliation"
+// 									onChange={formik.handleChange}
+// 									value={formik.values.avaliation}
+// 									required
+// 								>
+// 									<Option value="" disabled>
+// 										Selecione a nota
+// 									</Option>
+// 									<Option>5</Option>
+// 									<Option>4</Option>
+// 									<Option>3</Option>
+// 									<Option>2</Option>
+// 									<Option>1</Option>
+// 								</SelectField>
+// 								<Box ml={Spaces.THREE}>
+// 									<Button type="submit">Atribuir</Button>
+// 								</Box>
+// 							</Flex>
+// 							{/* Utilizando o componente Alert */}
+// 							<Box mt={Spaces.TWO}>
+// 								{formik.values.avaliation === '' && (
+// 									<Alert type="error" small>
+// 										Escolha uma nota para ser atribuída
+// 									</Alert>
+// 								)}
+// 							</Box>
+// 						</form>
+// 					</Flex>
+// 				</Flex>
+// 				<Box my={Spaces.ONE_HALF} as="section">
+// 					<HeadingTwo as="h1">{hero.name}</HeadingTwo>
+// 					<Description color={Colors.GRAY_700}>
+// 						{hero.biography['full-name']} - {hero.biography.publisher}
+// 					</Description>
+// 				</Box>
+// 				<DetailsGrid>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Codinomes</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								{hero.biography.aliases.join(', ')}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Local de Nascimento</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								{hero.biography['place-of-birth']}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Primeira HQ</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								{hero.biography['first-appearance']}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Informações Biológicas</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								<strong>Genero: </strong> {hero.appearance.gender}
+// 								<br />
+// 								<strong>Raça: </strong> {hero.appearance.race}
+// 								<br />
+// 								<strong>Altura: </strong> {hero.appearance.height[1]}
+// 								<br />
+// 								<strong>Peso: </strong> {hero.appearance.weight[1]}
+// 								<br />
+// 								<strong>Cor do olho: </strong> {hero.appearance['eye-color']}
+// 								<br />
+// 								<strong>Cor do cabelo: </strong> {hero.appearance['hair-color']}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Atributos</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								<strong>Força: </strong> {hero.powerstats.strength}
+// 								<br />
+// 								<strong>Inteligência: </strong> {hero.powerstats.intelligence}
+// 								<br />
+// 								<strong>Velocidade: </strong> {hero.powerstats.speed}
+// 								<br />
+// 								<strong>Resistência: </strong> {hero.powerstats.durability}
+// 								<br />
+// 								<strong>Poder: </strong> {hero.powerstats.power}
+// 								<br />
+// 								<strong>Combate: </strong> {hero.powerstats.combat}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 				</DetailsGrid>
+// 				<Flex width="100%" justifyContent="center" mt={Spaces.FIVE}>
+// 					<Box>
+// 						<Button ghost onClick={handleBack}>
+// 							Voltar
+// 						</Button>
+// 					</Box>
+// 				</Flex>
+// 			</Container>
+// 		)
+// 	);
+// }
+
+
+// ===== Implementação de Validação com Yup e Formik =======
+
+// import styled from 'styled-components';
+// import { Flex, Box } from 'reflexbox';
+// import {
+// 	BorderRadiuses,
+// 	Colors,
+// 	Shadows,
+// 	Spaces,
+// } from '../shared/DesignTokens';
+// import {
+// 	SelectField,
+// 	Option,
+// } from '../common-components/SelectField/SelectField';
+// import { Button } from '../common-components/Button/Button';
+// import { HeadingTwo } from '../common-components/HeadingTwo/HeadingTwo';
+// import { Description } from '../common-components/Description/Description';
+// import { Card } from '../common-components/Card/Card';
+// import { Caption } from '../common-components/Caption/Caption';
+// import { useNavigate, useParams } from 'react-router-dom';
+// import { useHero } from '../hooks/useHero';
+// import { useFormik } from 'formik';
+// import * as yup from 'yup'; // Biblioteca Yup para validação
+// import { Alert } from '../common-components/Alert/Alert';
+
+// const Container = styled.aside`
+// 	width: 727px;
+// 	margin: 0 auto;
+// `;
+
+// const HeroAvatar = styled.div`
+// 	width: 344px;
+// 	height: 194px;
+// 	box-shadow: ${Shadows.ONE};
+// 	border-radius: ${BorderRadiuses.ONE};
+// 	background-image: url('${(props) => props.src}');
+// 	background-repeat: no-repeat;
+// 	background-size: cover;
+// 	background-position: center 25%;
+// `;
+
+// const DetailsGrid = styled.section`
+// 	display: grid;
+// 	grid-template-columns: 1fr 1fr 1fr;
+// 	gap: ${Spaces.TWO};
+// `;
+
+// export function Details() {
+// 	const navigate = useNavigate();
+// 	const { id } = useParams();
+// 	const { hero, isLoadingHero } = useHero(id);
+
+// 	// Configuração do Formik com validação Yup
+// 	const formik = useFormik({
+// 		initialValues: {
+// 			avaliation: '',
+// 		},
+// 		validationSchema: yup.object().shape({
+// 			avaliation: yup.string().required(),
+// 		}),
+// 		onSubmit: (values) => {
+// 			console.log(values);
+// 		},
+// 	});
+
+// 	const handleBack = () => {
+// 		navigate(-1);
+// 	};
+
+// 	return (
+// 		!isLoadingHero && (
+// 			<Container>
+// 				<Flex mt={Spaces.FOUR} as="section">
+// 					<HeroAvatar src={hero.image.url} />
+// 					<Flex flexDirection="column" justifyContent="center" height={194} ml={Spaces.SEVEN}>
+// 						<form onSubmit={formik.handleSubmit} noValidate> {/* Alteração: adição de noValidate */}
+// 							<Flex>
+// 								<SelectField
+// 									name="avaliation"
+// 									onChange={formik.handleChange}
+// 									value={formik.values.avaliation}
+// 									required
+// 								>
+// 									<Option value="" disabled>
+// 										Selecione a nota
+// 									</Option>
+// 									<Option>5</Option>
+// 									<Option>4</Option>
+// 									<Option>3</Option>
+// 									<Option>2</Option>
+// 									<Option>1</Option>
+// 								</SelectField>
+// 								<Box ml={Spaces.THREE}>
+// 									<Button type="submit">Atribuir</Button>
+// 								</Box>
+// 							</Flex>
+// 							{formik.errors.avaliation && ( /* Condicional que mostra o alerta de erro */
+// 								<Box mt={Spaces.TWO}>
+// 									<Alert type="error">
+// 										Escolha uma nota para ser atribuída
+// 									</Alert>
+// 								</Box>
+// 							)}
+// 						</form>
+// 					</Flex>
+// 				</Flex>
+// 				<Box my={Spaces.ONE_HALF} as="section">
+// 					<HeadingTwo as="h1">{hero.name}</HeadingTwo>
+// 					<Description color={Colors.GRAY_700}>
+// 						{hero.biography['full-name']} - {hero.biography.publisher}
+// 					</Description>
+// 				</Box>
+// 				<DetailsGrid>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Codinomes</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								{hero.biography.aliases.join(', ')}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Local de Nascimento</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								{hero.biography['place-of-birth']}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Primeira HQ</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								{hero.biography['first-appearance']}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Informações Biológicas</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								<strong>Genero: </strong> {hero.appearance.gender}
+// 								<br />
+// 								<strong>Raça: </strong> {hero.appearance.race}
+// 								<br />
+// 								<strong>Altura: </strong> {hero.appearance.height[1]}
+// 								<br />
+// 								<strong>Peso: </strong> {hero.appearance.weight[1]}
+// 								<br />
+// 								<strong>Cor do olho: </strong> {hero.appearance['eye-color']}
+// 								<br />
+// 								<strong>Cor do cabelo: </strong> {hero.appearance['hair-color']}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 					<Card>
+// 						<Box p={Spaces.TWO}>
+// 							<Box mb={Spaces.ONE}>
+// 								<Caption>Atributos</Caption>
+// 							</Box>
+// 							<Description color={Colors.GRAY_700}>
+// 								<strong>Força: </strong> {hero.powerstats.strength}
+// 								<br />
+// 								<strong>Inteligência: </strong> {hero.powerstats.intelligence}
+// 								<br />
+// 								<strong>Velocidade: </strong> {hero.powerstats.speed}
+// 								<br />
+// 								<strong>Resistência: </strong> {hero.powerstats.durability}
+// 								<br />
+// 								<strong>Poder: </strong> {hero.powerstats.power}
+// 								<br />
+// 								<strong>Combate: </strong> {hero.powerstats.combat}
+// 							</Description>
+// 						</Box>
+// 					</Card>
+// 				</DetailsGrid>
+// 				<Flex width="100%" justifyContent="center" mt={Spaces.FIVE}>
+// 					<Box>
+// 						<Button ghost onClick={handleBack}>
+// 							Voltar
+// 						</Button>
+// 					</Box>
+// 				</Flex>
+// 			</Container>
+// 		)
+// 	);
+// }
+
+
+// ===== Implementação de Armazenamento e Exibição de Avaliação no localStorage com Formik
 
 
 import styled from 'styled-components';
@@ -748,6 +1882,9 @@ import { Card } from '../common-components/Card/Card';
 import { Caption } from '../common-components/Caption/Caption';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useHero } from '../hooks/useHero';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import { Alert } from '../common-components/Alert/Alert';
 
 const Container = styled.aside`
 	width: 727px;
@@ -774,38 +1911,60 @@ const DetailsGrid = styled.section`
 export function Details() {
 	const navigate = useNavigate();
 	const { id } = useParams();
-	const { hero, isLoadingHero } = useHero(id);
+	const { hero, isLoadingHero, setHeroAvaliation, getHeroAvaliation } = useHero(id); // Adicionadas as funções setHeroAvaliation e getHeroAvaliation do hook useHero
+
+	const formik = useFormik({
+		initialValues: getHeroAvaliation(id) || { avaliation: '' }, // Usando getHeroAvaliation para definir valores iniciais
+		validationSchema: yup.object().shape({
+			avaliation: yup.string().required(),
+		}),
+		onSubmit: (values) => {
+			const heroAvaliation = { id, avaliation: values.avaliation };
+			setHeroAvaliation(heroAvaliation); // Armazena a avaliação no localStorage
+			alert('Nota atribuída com sucesso!');
+			navigate('/'); // Redireciona para a tela de listagem
+		},
+	});
 
 	const handleBack = () => {
 		navigate(-1);
 	};
 
 	return (
-		!isLoadingHero && ( // Alteração: Condicional de renderização do Container
+		!isLoadingHero && (
 			<Container>
 				<Flex mt={Spaces.FOUR} as="section">
 					<HeroAvatar src={hero.image.url} />
-					<Flex
-						flexDirection="column"
-						justifyContent="center"
-						height={194}
-						ml={Spaces.SEVEN}
-					>
-						<Flex>
-							<SelectField defaultValue="">
-								<Option value="" disabled>
-									Selecione a nota
-								</Option>
-								<Option>5</Option>
-								<Option>4</Option>
-								<Option>3</Option>
-								<Option>2</Option>
-								<Option>1</Option>
-							</SelectField>
-							<Box ml={Spaces.THREE}>
-								<Button>Atribuir</Button>
-							</Box>
-						</Flex>
+					<Flex flexDirection="column" justifyContent="center" height={194} ml={Spaces.SEVEN}>
+						<form onSubmit={formik.handleSubmit} noValidate>
+							<Flex>
+								<SelectField
+									name="avaliation"
+									onChange={formik.handleChange}
+									value={formik.values.avaliation}
+									required
+								>
+									<Option value="" disabled>
+										Selecione a nota
+									</Option>
+									<Option>5</Option>
+									<Option>4</Option>
+									<Option>3</Option>
+									<Option>2</Option>
+									<Option>1</Option>
+								</SelectField>
+								<Box ml={Spaces.THREE}>
+									<Button type="submit">Atribuir</Button>
+								</Box>
+							</Flex>
+							{formik.errors.avaliation && (
+								<Box mt={Spaces.TWO}>
+									<Alert type="error">
+										Escolha uma nota para ser atribuída
+									</Alert>
+								</Box>
+							)}
+						</form>
 					</Flex>
 				</Flex>
 				<Box my={Spaces.ONE_HALF} as="section">
@@ -897,6 +2056,3 @@ export function Details() {
 		)
 	);
 }
-
-
-// A alteração foi feita para renderizar o Container somente quando os dados do herói estiverem carregados.
